@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float verticalMove;
 
     public Joystick joystick;
+    public Boundary boundary;
 
     // Start is called before the first frame update
     void Start()
