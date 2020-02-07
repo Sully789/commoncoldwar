@@ -81,10 +81,19 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
-    <Compile Include="Assets\Mover.cs" />
+    <Compile Include="Assets\Scripts\BGScroller.cs" />
+    <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
+    <Compile Include="Assets\Scripts\DestroyByContact.cs" />
+    <Compile Include="Assets\Scripts\DestroyByTime.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Mover.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\RandomRotator.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Editor">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -98,11 +107,29 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.multiplayer-weaver.Editor">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
+      <HintPath>C:/Users/Sean/Documents/GitHub/commoncoldwar/CommonColdWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

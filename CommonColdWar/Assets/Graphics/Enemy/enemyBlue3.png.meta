@@ -1,12 +1,10 @@
 fileFormatVersion: 2
 guid: 2c0cd129293084b3d9fc53a3b6e5da84
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 21300000
-    second: enemyBlue3_0
+  fileIDToRecycleName:
+    21300000: enemyBlue3_0
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -90,8 +88,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 
-      internalID: 0
+      spriteID: 3dd573bbd4c366e469b0588f57957c39
       vertices: []
       indices: 
       edges: []
@@ -100,12 +97,10 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 
-    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
