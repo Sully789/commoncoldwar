@@ -80,11 +80,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
+
     }
 
     void Shoot()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > nextFire) // Fix this to shoot when button is pressed
         {
             nextFire = Time.time + fireRate;
             // Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -92,4 +93,5 @@ public class PlayerController : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
     }
+
 }

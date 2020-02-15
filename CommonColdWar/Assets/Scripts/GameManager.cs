@@ -9,9 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] hazards;
     public Vector3 spawnValues;
     public Text scoreText;
-    public Text restartText;
     public Text gameOverText;
-    //public GameObject restartButton;
+    public GameObject restartButton;
 
     public int hazardCount;
     public float spawnWait;
@@ -21,29 +20,19 @@ public class GameManager : MonoBehaviour
     private int score;
     private bool gameOver;
     private bool restart;
+    private bool shieldPowerUpActive;
+    private bool shotPowerUpActive;
 
     void Start()
     {
         gameOver = false;
         restart = false;
-        restartText.text = "";
         gameOverText.text = "";
-        //restartButton.SetActive(false);
+        restartButton.SetActive(false);
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
     }
-
-    //void Update ()
-    //{
-    //    if (restart)
-    //    {
-    //        if (Input.GetKeyDown (KeyCode.R))
-    //        {
-    //            Application.LoadLevel (Application.loadedLevel);
-    //        }
-    //    }
-    //}
 
     IEnumerator SpawnWaves()
     {
@@ -62,8 +51,7 @@ public class GameManager : MonoBehaviour
 
             if (gameOver)
             {
-                //restartButton.SetActive(true);
-                restartText.text = "Press 'R' for Restart";
+                restartButton.SetActive(true);
                 restart = true;
                 break;
             }
@@ -91,5 +79,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+    }
+
+    public void ShieldActive(bool isShieldPowerUpActive)
+    {
+        shieldPowerUpActive = isShieldPowerUpActive;
+    }
+
+    public void ShotActive(bool isShotPowerUpActive)
+    {
+        shotPowerUpActive = isShotPowerUpActive;
     }
 }
