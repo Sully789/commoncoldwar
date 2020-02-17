@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     private int score;
     private bool gameOver;
     private bool restart;
-    private bool shieldPowerUpActive;
-    private bool shotPowerUpActive;
+    private bool shieldPowerUpActive = false;
+    private bool shotPowerUpActive = false;
 
     void Start()
     {
@@ -81,13 +81,28 @@ public class GameManager : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
     }
 
-    public void ShieldActive(bool isShieldPowerUpActive)
+    public bool getShieldActive()
     {
-        shieldPowerUpActive = isShieldPowerUpActive;
+        //shieldPowerUpActive = isShieldPowerUpActive;
+        return shieldPowerUpActive;
     }
 
-    public void ShotActive(bool isShotPowerUpActive)
+    public bool getShotActive()
+    {
+       // shotPowerUpActive = isShotPowerUpActive;
+        return shotPowerUpActive;
+    }
+
+    public void setShieldActive(bool isShieldPowerUpActive)
+    {
+        shieldPowerUpActive = isShieldPowerUpActive;
+       // this.yourboolean = bool;
+    }
+
+    public void setShotActive(bool isShotPowerUpActive)
     {
         shotPowerUpActive = isShotPowerUpActive;
+        //this.yourboolean = bool;
     }
+
 }
