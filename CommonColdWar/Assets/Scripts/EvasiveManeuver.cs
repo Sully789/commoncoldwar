@@ -10,8 +10,8 @@ public class EvasiveManeuver : MonoBehaviour
     public float dodgeY;
     public float smoothing;
     public float tilt;
-    public float xRange = 8; //Range on x axis used to keep player in game area
-    public float yRange = 5; //Range on y axis used to keep player in game area
+    public float xRange = 8; //Range on x axis used to keep Enemy in game area
+    public float yRange = 5; //Range on y axis used to keep Enemy in game area
 
     public Vector2 startWait;
     public Vector2 maneuverTime;
@@ -24,10 +24,11 @@ public class EvasiveManeuver : MonoBehaviour
     private float targetManeuverY;
     private Rigidbody2D rb;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentSpeed = rb.velocity.y;  //or x
+        currentSpeed = rb.velocity.x;
         StartCoroutine(Evade());
     }
 
@@ -37,13 +38,13 @@ public class EvasiveManeuver : MonoBehaviour
 
         while (true)
         {
-            targetManeuver = Random.Range(1, dodge) * -Mathf.Sign(transform.position.x);
-            //targetManeuverX = Random.Range(1, dodgeX) * -Mathf.Sign(transform.position.x);
-           // targetManeuverY = Random.Range(1, dodgeY) * -Mathf.Sign(transform.position.y);
+           // targetManeuver = Random.Range(1, dodge) * -Mathf.Sign(transform.position.y);  //prev x for case 1 x
+            targetManeuverX = Random.Range(1, dodgeX) * -Mathf.Sign(transform.position.x);
+            targetManeuverY = Random.Range(1, dodgeY) * -Mathf.Sign(transform.position.y);
             yield return new WaitForSeconds(Random.Range(maneuverTime.x, maneuverTime.y));
-            targetManeuver = 0;
-           // targetManeuverX = 0;
-           // targetManeuverY = 0;
+          //  targetManeuver = 0;
+            targetManeuverX = 0;
+            targetManeuverY = 0;
             yield return new WaitForSeconds(Random.Range(maneuverWait.x, maneuverWait.y));
         }
     }
@@ -52,24 +53,26 @@ public class EvasiveManeuver : MonoBehaviour
     void FixedUpdate()
     {
         PerformManeuver(evadeType);
-       // KeepInBounds();
-        
-        rb.position = new Vector3
+       KeepInBounds();
+        /*
+        rb.position = new Vector2 //prev Vector 3
         (
+            
             Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-            Mathf.Clamp(rb.position.y, boundary.yMin, boundary.yMax),
-            0.0f
+            Mathf.Clamp(rb.position.y, boundary.yMin, boundary.yMax)//,
+           // 0.0f
         );
         
-
+    */
        // rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);  tilt script here
     }
 
-    void KeepInBounds() //Method ensures player does not move out of the game area
+    void KeepInBounds() //Method ensures enemy does not move out of the game area
     {
         if (transform.position.x < -xRange)
         {
-            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+            Destroy(gameObject); // Destroy if leave edge of screen
+          //  transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
         }
         else if (transform.position.x > xRange)
         {
@@ -79,7 +82,7 @@ public class EvasiveManeuver : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, -yRange, transform.position.z);
         }
-        else if (transform.position.y > xRange)
+        else if (transform.position.y > yRange)
         {
             transform.position = new Vector3(transform.position.x, yRange, transform.position.z);
         }
@@ -91,37 +94,27 @@ public class EvasiveManeuver : MonoBehaviour
         switch (evadeType)
         {
             case 1:
-                Debug.Log("Case 1");
-                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuver, Time.deltaTime * smoothing);
-                rb.velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
+                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuverX, Time.deltaTime * smoothing);
+                rb.velocity = new Vector2(newManeuver, 0.0f);
                 break;
 
             case 2:
-                Debug.Log("Case 2");
-                newManeuver = Mathf.MoveTowards(targetManeuver, rb.velocity.y, Time.deltaTime * smoothing);
-                rb.velocity = new Vector3(0.0f, newManeuver, currentSpeed);
-                Debug.Log("Target Maneuver: " + targetManeuverX);
-                Debug.Log("New Maneuver" + newManeuver);
-               // Debug.Log("Case 2");
+                newManeuver = Mathf.MoveTowards(rb.velocity.y, targetManeuverY, Time.deltaTime * smoothing);
+                rb.velocity = new Vector2(currentSpeed, newManeuver);
                 break;
 
             case 3:
-                Debug.Log("Case 3");
-                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuverY, Time.deltaTime * smoothing);
-                rb.velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
-                break;
-
-            case 4:
-                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuverY, Time.deltaTime * smoothing);
-                rb.velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
+                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuverX, Time.deltaTime * smoothing);
+                rb.velocity = new Vector2(newManeuver, newManeuver);
                 break;
 
             default:
-                newManeuver = Mathf.MoveTowards(rb.velocity.x, targetManeuverY, Time.deltaTime * smoothing);
-                rb.velocity = new Vector3(newManeuver, 0.0f, currentSpeed);
+                Debug.Log("No Evade Type Found");
                 break;
         }
         
     }
+
+
 
 }

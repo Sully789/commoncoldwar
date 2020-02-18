@@ -8,6 +8,7 @@ public class DestroyByContact : MonoBehaviour
     public GameObject playerExplosion;
 
     public int scoreValue;
+
     private GameManager gameManager;
 
     void Start()
@@ -28,7 +29,7 @@ public class DestroyByContact : MonoBehaviour
     {
         Debug.Log("collide (name) : " + other.gameObject.name);
         Debug.Log("collide (tag) : " + other.gameObject.tag);
-        if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Shield Powerup") || other.CompareTag("Shot Powerup"))
+        if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Shield Powerup") || other.CompareTag("Shot Powerup") || other.CompareTag("Boss"))
         {
             return;
         }
@@ -51,7 +52,7 @@ public class DestroyByContact : MonoBehaviour
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
             gameManager.GameOver();
         }
-
+         
         gameManager.AddScore(scoreValue);
         Destroy(other.gameObject);
         Destroy(gameObject);
