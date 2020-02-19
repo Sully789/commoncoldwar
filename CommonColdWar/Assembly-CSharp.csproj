@@ -62,18 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Example_Scripts\Asteroid_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\DestroyByBoundary_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\EnemyBlue_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\EnemyGreen_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\EnemyRed_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\EnemyShot_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\explosions_script.cs" />
-    <Compile Include="Assets\Example_Scripts\GameController_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\LaserHit_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\Player_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\PlayerShipShots_Script.cs" />
-    <Compile Include="Assets\Example_Scripts\SharedValues_Script.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -83,7 +71,6 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\BGScroller.cs" />
     <Compile Include="Assets\Scripts\BossController.cs" />
-    <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
     <Compile Include="Assets\Scripts\DestroyByContact.cs" />
     <Compile Include="Assets\Scripts\DestroyByTime.cs" />
     <Compile Include="Assets\Scripts\EvasiveManeuver.cs" />

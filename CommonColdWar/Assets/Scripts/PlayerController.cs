@@ -1,29 +1,33 @@
-﻿using System.Collections;
+﻿/*
+ * Sean O'Sullivan, K00180620, Cross Platform Games Development, CA1
+ * PlayerController.cs handles Player Input, Keeps the Player Inbounds, and handles Power Up VFX
+ * Joystick implementation apdated from: https://www.youtube.com/watch?v=bp2PiFC9sSs
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-    // public float horizontalMove;
-    //public float verticalMove;
-    private float nextFire;
-    public float fireRate;
-    public float xRange = 8; //Range on x axis used to keep player in game area
-    public float yRange = 5; //Range on y axis used to keep player in game area
+    public float moveSpeed;             //float value holds the movement speed
+    public float fireRate;              //float value holds the rate of fire
 
-    public Rigidbody2D rb;
-    public Joystick joystick;
-    public Boundary boundary;
-    public GameObject shot;
-    public GameObject shield;
-    public Transform[] shotSpawns;
-    public Button shootButton;
+    public Rigidbody2D rb;              //Rigidbody2D of the Player
+    public Joystick joystick;           //Joystick used for mobile touch controls
+    public GameObject shot;             //GameObject that holds the Players shot
+    public GameObject shield;           //GameObject that holds the VFX of the Players shield
+    public Transform[] shotSpawns;      //Transform Array that holds the positions where the Players shot comes from
+    public Button shootButton;          //UI that holds the Shoot button
 
-    public Vector2 movement;
+    public Vector2 movement;            //Vector2 used to move
 
-    private GameManager gameManager;
+    private GameManager gameManager;    //Game Manager used for Power Up logic
+    private float nextFire;             //float to hold the time when Player can shoot again
+    private float shotPowerUpLength=20; //float to hold the amount of time the Shot Power Up is active
+    private float xRange = 8;           //Range on x axis used to keep Player in game area
+    private float yRange = 5;           //Range on y axis used to keep Player in game area
 
     // Start is called before the first frame update
     void Start()
@@ -38,60 +42,42 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Cannot find 'GameManager' script");
         }
-
-       // Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // horizontalMove = joystick.Horizontal * moveSpeed;
-     movement.x = joystick.Horizontal * moveSpeed;
-        // verticalMove = joystick.Vertical * moveSpeed;
+        movement.x = joystick.Horizontal * moveSpeed;
         movement.y = joystick.Vertical * moveSpeed;
 
         if (joystick.Horizontal >= .2f)
         {
-            // horizontalMove = moveSpeed;
             movement.x = moveSpeed;
         }
         else if(joystick.Horizontal <= -.2f)
         {
-            // horizontalMove = -moveSpeed;
             movement.x = -moveSpeed;
         }
         else
         {
-            // horizontalMove = 0;
             movement.x = 0;
         }
 
         if (joystick.Vertical >= .2f)
         {
-            //verticalMove = moveSpeed;
             movement.y = moveSpeed;
         }
         else if (joystick.Vertical <= -.2f)
         {
-            //verticalMove = -moveSpeed;
             movement.y = -moveSpeed;
         }
         else
         {
-            //verticalMove = 0;
             movement.y = 0;
         }
 
-        // for(int i = 0; i < Input.touchCount; i++)
-        // {
-        //     Vector3 touchPositon = Camera.main.ScreenToViewportPoint(Input.touches[i].position);
-        //    Debug.DrawLine(Vector3.zero, touchPositon, Color.blue);
-        //  }
-
-        //Shoot();
         KeepInBounds();
         PowerUpVFX();
-
     }
 
     private void FixedUpdate()
@@ -100,7 +86,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void KeepInBounds() //Method ensures player does not move out of the game area
+    //Ensures Player does not move out of the game area
+    void KeepInBounds()
     {
         if (transform.position.x < -xRange)
         {
@@ -120,6 +107,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Shoots when Player pressed the Fire Button
     public void Shoot()
     {
         
@@ -132,16 +120,12 @@ public class PlayerController : MonoBehaviour
                 foreach (var shotSpawn in shotSpawns)
                 {
                     Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-                    //Instantiate(shot, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), gameObject.transform.rotation);
                 }
             }
             else
             {
                 Instantiate(shot, shotSpawns[0].position, shotSpawns[0].rotation);
-                //Instantiate(shot, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), gameObject.transform.rotation);
             }
-            
-            // Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             
             GetComponent<AudioSource>().Play();
         }
@@ -149,6 +133,7 @@ public class PlayerController : MonoBehaviour
          
     }
 
+    //Turns on and off the Shield VFX when Power Up is picked up
     public void PowerUpVFX()
     {
         if(gameManager.getShieldActive() == true)
@@ -161,6 +146,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Trigger colliders to handle Power Ups
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -169,11 +155,6 @@ public class PlayerController : MonoBehaviour
             gameManager.setShieldActive(true);
             Destroy(other.gameObject);
         }
-        //Prob wont need this? already true
-       // if(other.CompareTag("Shield Powerup") && gameManager.getShieldActive() == true)
-      //  {
-      //      Destroy(other.gameObject);
-      //  }
 
         if (other.CompareTag("Shot Powerup"))
         {
@@ -182,33 +163,12 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(ShotPowerupCountdownRoutine());
         }
 
-
-        // if()
-        // if (other.CompareTag("Boundary") || other.CompareTag("Enemy"))
-        // {
-        //      return;
-        //   }
-
-        /*
-           if (gameManager.getShieldActive() == true)
-           {
-               Debug.Log("Shield already On");
-               //turn on VFX
-           }
-
-           if (gameManager.getShieldActive() == false)
-           {
-
-               //turn on VFX
-               // StartCoroutine(PowerupCountdownRoutine());  For shot, shield stays on till hit
-           }
-
-           */
     }
 
+    //Coroutine that handles the length of the Shot Power Up
     IEnumerator ShotPowerupCountdownRoutine()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(shotPowerUpLength);
         gameManager.setShotActive(false);
     }
 
