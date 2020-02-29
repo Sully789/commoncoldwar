@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 movement;            //Vector2 used to move
 
+    public GoogleAnalyticsV3 googleAnalytics;  //Used for Analytics
+
     private GameManager gameManager;    //Game Manager used for Power Up logic
     private float nextFire;             //float to hold the time when Player can shoot again
     private float shotPowerUpLength=20; //float to hold the amount of time the Shot Power Up is active
